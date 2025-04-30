@@ -2,11 +2,11 @@
 //
 
 #include <iostream>
-#include "include/heart_clinic.h"
-#include "include/pulmonary_clinic.h"
-#include "include/plastic_surgery_clinic.h"
-#include "include/file_handler.h"
-#include "include/menu.h"
+#include "heart_clinic.h"
+#include "pulmonary_clinic.h"
+#include "plastic_surgery_clinic.h"
+#include "file_handler.h"
+#include "menu.h"
 
 int main()
 {
