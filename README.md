@@ -1,77 +1,72 @@
-# Hospital Patient Management System - Balanced Three-Way Team Breakdown
+# KC Research Hospital - Patient Management System
 
+## Project Overview
+This project involves developing a patient management system for Research Hospital with three departments: Heart Clinic, Pulmonary Clinic, and Plastic Surgery Clinic. The system will track patients in each department's queue, handle regular and critically ill patients with appropriate prioritization, and maintain transaction logs of all operations.
 
-## Part 1: Data Structures and Patient Operations
-**Team Member 1 Responsibilities:**
+## Project Requirements
 
-1. Design and implement the `Patient` class/struct
-   - Define attributes: firstName, lastName, SSN, status (regular/critical)
-   - Implement constructors, accessors, mutators, and any needed operators
+### Core Functionality
+- Implement a custom queue using linked list nodes/pointers (no built-in containers like vectors)
+- Manage patients in three different clinic departments
+- Support both regular and critically ill patients with priority handling
+- Process input from a CSV file for scheduled patients
+- Generate transaction logs and reports
+- Provide interactive menu system for clinic operations
 
-2. Implement the queue data structure using linked list nodes
-   - Create the `Node` class for queue elements
-   - Implement core queue functionality (enqueue, dequeue, isEmpty, etc.)
-   - Add priority handling for critical patients
+### Specific Features
+1. **Patient Management**
+   - Add regular patients to the end of the queue
+   - Add critically ill patients with priority over regular patients
+   - Take patients to operation room (with critical patients given priority)
+   - Cancel patients by SSN
+   - List all current patients in a clinic
 
-3. Implement the following clinic operations:
-   - Add regular patient functionality
-   - Add critical patient functionality (with priority)
-   - List all patients functionality
-   - Associated console input/output for these operations
+2. **File Operations**
+   - Read initial patients from patient.csv
+   - Log all transactions (successful and failed)
+   - Generate end-of-day report of remaining patients
 
-4. Unit test these components to ensure they work correctly
+3. **Data Validation**
+   - Validate clinic names (HC, PC, PSC)
+   - Ensure SSN is numeric
+   - Enforce clinic capacity limits (max 10 patients per clinic)
 
-## Part 2: Queue Management and File I/O
-**Team Member 2 Responsibilities:**
+### Interface Requirements
+- Main menu for department selection
+- Department-specific menu for operations
+- Console-based user interface
 
-1. Implement remaining clinic operations:
-   - Take out patient for operation (dequeue with priority rules)
-   - Cancel patient by SSN (remove from middle of queue)
-   - Exit department functionality
-   - Associated console input/output for these operations
+## Class Structure Plans
+- Patient class/struct for storing patient information
+- Custom queue implementation using nodes and pointers
+- Base Clinic class with derived classes for each department
+- File handling functionality for I/O operations
 
-2. Implement file input operations
-   - Read the patient.csv file at program start
-   - Parse input data
-   - Validate clinic names and SSN format
-   - Handle initial patient loading
+## Input/Output Specifications
 
-3. Implement clinic capacity management
-   - Track and enforce the 10-patient limit per clinic
-   - Generate appropriate error messages
+### Input File Format (patient.csv)
+```
+clinicName,firstName,lastName,SSN
+```
+Where:
+- clinicName: HC (Heart Clinic), PC (Pulmonary Clinic), or PSC (Plastic Surgery Clinic)
+- firstName: Patient's first name
+- lastName: Patient's last name
+- SSN: Social Security Number (must be numeric)
 
-4. Unit test these components to ensure they work correctly
+### Output Files
+- Transaction log: Records of all operations grouped by clinic
+- End-of-day file: Remaining patients to be used as input for the next day
 
-## Part 3: Program Integration and Transaction Logging
-**Team Member 3 Responsibilities:**
+## Project Team
+This project is being developed by a team of three students, with responsibilities divided into:
+1. Data structures and patient operations
+2. Queue management and file I/O
+3. Program integration and transaction logging
 
-1. Implement the `Clinic` base class structure
-   - Define the class hierarchy
-   - Implement derived classes for each department (HC, PC, PSC)
-   - Ensure proper inheritance relationships
-
-2. Implement transaction logging
-   - Create and maintain the transaction log file
-   - Format transaction messages for all operations
-   - Group transactions by clinic
-   - Generate end-of-day report
-
-3. Implement menu system and program flow
-   - Main clinic selection menu
-   - Department action menu
-   - End-of-day processing
-   - Next-day file generation
-
-4. Final integration and testing of the complete system
-
-## Shared Responsibilities for All Team Members:
-- Document your code with comments, including pre- and post-conditions for functions
-- Participate in code reviews of each other's work
-- Contribute to the final presentation/demo
-- Maintain the document explaining each team member's role and completed work
-
-This rebalanced breakdown ensures each team member has work of similar complexity and scope:
-
-- Team Member 1 focuses on core data structures and fundamental patient operations
-- Team Member 2 focuses on advanced queue operations and file input
-- Team Member 3 focuses on class structure, logging, and system integration
+## Academic Context
+This project is part of a programming course focusing on:
+- Object-oriented programming concepts
+- Custom data structure implementation
+- File I/O operations
+- Group programming practices
