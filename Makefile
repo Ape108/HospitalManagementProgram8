@@ -1,6 +1,6 @@
 
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall -I./CS201R-Pgm8Hospital/include
+CXXFLAGS = -std=c++11 -Wall -I./CS201R-Pgm8Hospital
 SRCDIR = CS201R-Pgm8Hospital/src
 SOURCES = $(wildcard $(SRCDIR)/*.cpp)
 OBJECTS = $(SOURCES:.cpp=.o)
