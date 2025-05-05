@@ -33,7 +33,7 @@ int main()
         else {
             cout << "Invalid choice. Please try again." << endl;
         }
-        cout << "New choice: " << endl;
+        cout << "New choice: ";
         cin >> choice;
     }
     
