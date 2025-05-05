@@ -41,3 +41,5 @@ replit.nix
 .upm/
 .config/
 .local/
+
+.DS_Store
