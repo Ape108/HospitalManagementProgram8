@@ -12,4 +12,5 @@ int main()
 {
     std::cout << "Sadly, there is no starter code for this assignment\n";
 }
- 
+
+clinicName,firstName,lastName,SSN
