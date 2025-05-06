@@ -7,22 +7,14 @@
 
 using namespace std;
 
-struct Patient {
-    string firstName;
-    string lastName;
-    string ssn;
-    bool status;
-
-    Patient(string fn, string ln, string s, bool status = false);
-};
-
 class Clinic { //Starter code, you can change the function names and parameters as you like -- Mason
 private:
   string clinicName;
   Queue patientQueue;
 
 public:
-  Clinic(string name);
+  Clinic();
+  Clinic(string name, Queue& q);
 
   bool addPatient(Patient& patient, ofstream& logFile);
   void addCriticalPatient(Patient& patient, ofstream& logFile);

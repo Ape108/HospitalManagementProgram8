@@ -1,7 +1,7 @@
 #include "file_handler.h"
 
 void readFile(ifstream& inFile, Queue& L, Queue& HC, Queue& PC, Queue& PSC) {
-    dataType tempPerson;
+    Patient tempPerson;
     string inStr, tempStr;
     vector <string> row;
     while (getline(inFile, inStr)) {
@@ -11,22 +11,26 @@ void readFile(ifstream& inFile, Queue& L, Queue& HC, Queue& PC, Queue& PSC) {
             row.push_back(tempStr);
         }
         tempPerson.type = row[0];
-        if (tempPerson.type== "ERR") throw logic_error("invalid input");
-        tempPerson.lname = row[1];
-        tempPerson.fname = row[2];
+        if (tempPerson.type== "ERR") throw logic_error("Error in Type");
+        tempPerson.firstName = row[1];
+        tempPerson.lastName = row[2];
         try {
-            tempPerson.age = stoi(row[3]);
+            tempPerson.ssn = stoi(row[3]);
             Node* temp = new Node(tempPerson);
             L.addNode(temp);
-            //L.addNodeOrdered(tempPerson);
+
         }
-        catch (logic_error) {
-            cout << "error in input" << endl;
+        catch (logic_error& err) {
+            cout << err.what() << endl;
+            continue;
+        }
+        catch (...) {
+            cout << "Unknown Error" << endl;
             continue;
         }
     }
     Node* current = L.getHeadPtr();
-    while(current!=nullptr){
+    while (current!=nullptr){
         if (current->data.type == "HC"){
             HC.addNode(current);
         }

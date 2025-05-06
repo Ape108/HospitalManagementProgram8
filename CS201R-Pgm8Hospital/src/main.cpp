@@ -6,29 +6,49 @@
 #include "pulmonary_clinic.h"
 #include "plastic_surgery_clinic.h"
 #include "file_handler.h"
-#include "menu.h"
 #include "queue.h"
 #include "functions.h"
 using namespace std;
 
-int main()
-{	
-	
-    int choice = displayMenu(); // Display the menu and get the user's choice
+int main() {
+    ifstream inFile;
+    inFile.open("patient_data.csv");
+    if (!inFile.good()) {
+        cout << "File not found" << endl;
+        return 0;
+    }
+    Queue L, HC, PC, PSC;
+    
+    readFile(inFile, L, HC, PC, PSC);
+    inFile.close();
+
+    ofstream logFile;
+    logFile.open("log.txt");
+    if (!logFile.good())
+        cout << "Log file not found" << endl;
+
+    Clinic heartClinic("Heart Clinic", HC);
+    Clinic pulmonaryClinic("Pulmonary Clinic", PC);
+    Clinic plasticSurgeryClinic("Plastic Surgery Clinic", PSC);
+    
+    int choice = displayMenu();
     while (choice != 4) {
         if (choice == 1) {
             // Heart Clinic
-            cout << "Heart Clinic" << endl;
-            // Add code to handle Heart Clinic
+            cout << "Welcome to the Heart Clinic" << endl;
+            int choice2 = displayClinicMenu();
+            
         }
         else if (choice == 2) {
             // Pulmonary Clinic
-            cout << "Pulmonary Clinic" << endl;
+            cout << "Welcome to the Pulmonary Clinic" << endl;
+            int choice2 = displayClinicMenu();
             // Add code to handle Pulmonary Clinic
         }
         else if (choice == 3) {
             // Plastic Surgery
-            cout << "Plastic Surgery" << endl;
+            cout << "Welcome to the Plastic Surgery" << endl;
+            int choice2 = displayClinicMenu();
             // Add code to handle Plastic Surgery
         }
         else {

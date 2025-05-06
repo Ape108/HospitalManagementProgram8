@@ -10,4 +10,5 @@
 using namespace std;
 
 int displayMenu();
+int displayClinicMenu();
 
