@@ -18,10 +18,7 @@ struct Node {
 	dataType data;
 	Node* nextPtr;
 
-	Node()  {
-		dataType();
-		nextPtr = nullptr;
-	}
+	Node() : data(), nextPtr(nullptr) {}
 	Node(dataType d) {
 		data = d;
 		nextPtr = nullptr;
@@ -35,24 +32,42 @@ protected:
 public:
 	LinkedList();
 	LinkedList(dataType);
-	~LinkedList();  //destructor
-	virtual void addNode(dataType d);
+  ~LinkedList() {
+		Node* curr = headPtr;
+		while (curr) {
+			Node* temp = curr;
+			curr = curr->nextPtr;
+			delete temp;
+		}
+	}
+	virtual void addNode(Node* newNode););
 	void addNodeOrdered(dataType d);
-	virtual void delNode(string name);
+	virtual void delNode();
 	void printList();
 };
+
+LinkedList::LinkedList() {
+	headPtr = nullptr;
+	tailPtr = nullptr;
+}
+LinkedList::LinkedList(dataType d) {
+	Node* newNode = new Node(d);
+	headPtr = tailPtr = newNode;
+}
+
 
 class Queue : public LinkedList {
 private:
 	int max_size = 10;
 	int count = 0; //Tracks number of people in queue
 public:
-	void addNode(dataType d) override { // Adds a node to the end of the queue (enqueue)
+	Queue() : LinkedList() {}
+	Queue(dataType d) : LinkedList(d) {count++;}
+	void addNode(Node* newNode) override {
 		if (isFull()) {
 			cout << "The queue is full." << endl;
 			return;
 		}
-		Node* newNode = new Node(d);
 		if (tailPtr) {
 			tailPtr->nextPtr = newNode;
 		} else {
@@ -61,8 +76,13 @@ public:
 		tailPtr = newNode;
 		count++;
 	}
+
+	Node* getHeadPtr() {
+		return headPtr;
+	}
+
 	
-	void delNode() { // dequeue - removes a node from the front of the queue
+	void delNode() override { // dequeue - removes a node from the front of the queue
 		if (isEmpty()) {
 			cout << "The queue is empty." << endl;
 			return;

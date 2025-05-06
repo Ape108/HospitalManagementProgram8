@@ -16,7 +16,8 @@ void readFile(ifstream& inFile, Queue& L, Queue& HC, Queue& PC, Queue& PSC) {
         tempPerson.fname = row[2];
         try {
             tempPerson.age = stoi(row[3]);
-            L.addNode(tempPerson);
+            Node* temp = new Node(tempPerson);
+            L.addNode(temp);
             //L.addNodeOrdered(tempPerson);
         }
         catch (logic_error) {
@@ -24,15 +25,15 @@ void readFile(ifstream& inFile, Queue& L, Queue& HC, Queue& PC, Queue& PSC) {
             continue;
         }
     }
-    Node* current = L.headPtr;
+    Node* current = L.getHeadPtr();
     while(current!=nullptr){
-        if (current->type == "HC"){
+        if (current->data.type == "HC"){
             HC.addNode(current);
         }
-        else if (current->type=="PC"){
+        else if (current->data.type=="PC"){
             PC.addNode(current);
         }
-        else if (current->type=="PSC"){
+        else if (current->data.type=="PSC"){
             PSC.addNode(current);
         }
         current=current->nextPtr;
