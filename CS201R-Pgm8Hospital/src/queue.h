@@ -5,13 +5,13 @@
 using namespace std;
 
 struct dataType {
-	char type;
+	string type;
 	string lname;
 	string fname;
 	int age;
 
 	dataType() : type(' '),lname(""), fname(""),age(0) {}
-	dataType(char t, string ln, string fn, int a) : type(t), lname(ln), fname(fn), age(a) {}
+	dataType(string t, string ln, string fn, int a) : type(t), lname(ln), fname(fn), age(a) {}
 };
 
 struct Node {
