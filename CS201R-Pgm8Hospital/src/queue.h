@@ -1,60 +1,8 @@
+#include "linked.h"
+#ifndef QUEUE_H
+#define QUEUE_H
+
 #pragma once
-#include <string>
-#include <iostream>
-#include <iomanip>
-using namespace std;
-
-struct Patient {
-		string type;
-		string firstName;
-		string lastName;
-		string ssn;
-		bool status; // true = critical, false = non-critical
-		Patient() : type(""), firstName(""), lastName(""), ssn(""), status(false) {}
-		Patient(string type, string fn, string ln, string s, bool status = false);
-};
-
-struct Node {
-	Patient data;
-	Node* nextPtr;
-
-	Node() : data(), nextPtr(nullptr) {}
-	Node(Patient p) {
-		data = p;
-		nextPtr = nullptr;
-	}
-};
-
-class LinkedList {
-protected:
-	Node* headPtr;
-	Node* tailPtr;
-public:
-	LinkedList();
-	LinkedList(Patient p);
-  virtual ~LinkedList();
-	virtual void addNode(Node* newNode) = 0;
-	virtual void delNode();
-};
-
-LinkedList::LinkedList() {
-	headPtr = nullptr;
-	tailPtr = nullptr;
-}
-LinkedList::LinkedList(Patient p) {
-	Node* newNode = new Node(p);
-	headPtr = tailPtr = newNode;
-}
-LinkedList::~LinkedList() {
-	Node* curr = headPtr;
-	while (curr) {
-		Node* temp = curr;
-		curr = curr->nextPtr;
-		delete temp;
-	}
-}
-
-
 
 class Queue : public LinkedList {
 private:
@@ -62,7 +10,6 @@ private:
 	int count = 0; //Tracks number of people in queue
 public:
 	Queue() : LinkedList() {}
-	Queue(Patient d) : LinkedList(d) {count++;}
 	void addNode(Node* newNode) override {
 		if (isFull()) {
 			cout << "The queue is full." << endl;
@@ -166,3 +113,5 @@ public:
 		return count;
 	}
 };
+
+#endif

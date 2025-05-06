@@ -33,8 +33,6 @@ void Clinic::addCriticalPatient(Patient& patient, ofstream& logFile) {
     // Create a new node for the critical patient
     Node* newNode = new Node();
     newNode->data = patient;
-
-    // Insert at the front of the queue (override the inherited behavior of addNode)
     patientQueue.addCriticalPatient(newNode);
     // Log the action
     logFile << "Added critical patient: " << patient.firstName << " " << patient.lastName << endl;
