@@ -1,7 +1,10 @@
 #pragma once
+
 #include <string>
-#include "queue.h"
 #include <fstream>
+
+#include "queue.h"
+
 using namespace std;
 
 struct Patient {

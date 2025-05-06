@@ -1,8 +1,4 @@
 #include "file_handler.h"
-#include <iostream>
-#include "clinic.h"
-#include <fstream>
-#include <sstream>
 
 void readFile(ifstream& inFile, Queue& L, Queue& HC, Queue& PC, Queue& PSC) {
     dataType tempPerson;
