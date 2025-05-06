@@ -2,7 +2,7 @@
 
 
 ## Part 1: Data Structures and Patient Operations
-**Team Member 1 Responsibilities:**
+**Team Member 1 Responsibilities:** (ASHTON)
 
 1. Design and implement the `Patient` class/struct
    - Define attributes: firstName, lastName, SSN, status (regular/critical)
@@ -22,7 +22,7 @@
 4. Unit test these components to ensure they work correctly
 
 ## Part 2: Queue Management and File I/O
-**Team Member 2 Responsibilities:**
+**Team Member 2 Responsibilities:** (MASON)
 
 1. Implement remaining clinic operations:
    - Take out patient for operation (dequeue with priority rules)
@@ -43,7 +43,7 @@
 4. Unit test these components to ensure they work correctly
 
 ## Part 3: Program Integration and Transaction Logging
-**Team Member 3 Responsibilities:**
+**Team Member 3 Responsibilities:** (CAMERON)
 
 1. Implement the `Clinic` base class structure
    - Define the class hierarchy
