@@ -28,16 +28,18 @@ void readFile(ifstream& inFile, Queue& L, Queue& HC, Queue& PC, Queue& PSC) {
             continue;
         }
     }
-    for (int i= 0; i < L.size(); i++){
-        if (L[i].type == "HC"){
-            HC.addNode(L[i]);
+    Node* current = L.headPtr;
+    while(current!=nullptr){
+        if (current->type == "HC"){
+            HC.addNode(current);
         }
-        else if (L[i].type=="PC"){
-            PC.addNode(L[i]);
+        else if (current->type=="PC"){
+            PC.addNode(current);
         }
-        else if (L[i].type=="PSC"){
-            PSC.addNode(L[i]);
+        else if (current->type=="PSC"){
+            PSC.addNode(current);
         }
+        current=current->nextPtr;
     }
 
 }
