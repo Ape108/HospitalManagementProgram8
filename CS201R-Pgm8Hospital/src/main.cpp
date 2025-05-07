@@ -131,7 +131,12 @@ int main() {
         cout << "New choice: ";
         cin >> choice;
     }
-    
+    cout << "Heart Clinic Patients:\n";
+    heartClinic.printPatients();
+    cout << "Pulmonary Clinic Patients:\n";
+    pulmonaryClinic.printPatients();
+    cout << "Plastic Surgery Clinic Patients:\n";
+    plasticSurgeryClinic.printPatients();
     cout << "Have a good day!" << endl;
     return 0;
 
