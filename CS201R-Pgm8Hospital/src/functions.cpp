@@ -1,5 +1,7 @@
 #include "functions.h"
 
+// Displays the main menu of the hospital system
+// Returns the user's choice (1-4)
 int displayMenu() {
   cout << "KC Research Hospital" << endl;
   cout << "1. Heart Clinic" << endl;
@@ -12,6 +14,9 @@ int displayMenu() {
   cin >> choice;
   return choice;
 }
+
+// Displays the clinic-specific menu for patient management
+// Returns the user's choice (1-6)
 int displayClinicMenu() {
     cout << "1. Add Patient" << endl;
     cout << "2. Add Critical Patient" << endl;

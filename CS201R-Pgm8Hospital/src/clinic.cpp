@@ -1,63 +1,66 @@
 #include "clinic.h"
 #include <iostream>
+#include <iomanip>
 
-// Constructor for Clinic, initializes clinic name and patient queue
+// Default constructor initializes an empty clinic
 Clinic::Clinic() {
     clinicName = "";
     patientQueue = Queue();
 }
+
+// Constructor that creates a clinic with a specific name and initial patient queue
 Clinic::Clinic(string name, Queue& q) {
     clinicName = name;
     patientQueue = q;
 }
 
-// Adds a patient to the queue, logs the action in the log file
+// Adds a regular patient to the queue and logs the action
+// Returns true if successful, false if queue is full
 bool Clinic::addPatient(Patient& patient, ofstream& logFile) {
     if (patientQueue.isFull()) {
         logFile << "Clinic is full, cannot add patient: " << patient.firstName << " " << patient.lastName << endl;
-        return false;  // Clinic is full
+        return false;
     }
 
-    // Create a new node for the patient
+    // Create a new node for the patient and add to queue
     Node* newNode = new Node();
     newNode->data = patient;
-
-    patientQueue.addNode(newNode);  // Add the patient to the queue
+    patientQueue.addNode(newNode);
     logFile << "Added patient: " << patient.firstName << " " << patient.lastName << endl;
 
     return true;
 }
 
-// Adds a critical patient to the front of the queue, logs the action in the log file
+// Adds a critical patient to the queue with priority and logs the action
 void Clinic::addCriticalPatient(Patient& patient, ofstream& logFile) {
     // Create a new node for the critical patient
     Node* newNode = new Node();
     newNode->data = patient;
     patientQueue.addCriticalPatient(newNode);
-    // Log the action
     logFile << "Added critical patient: " << patient.firstName << " " << patient.lastName << endl;
 }
 
-// Operates on the first patient in the queue and logs the operation
+// Processes the next patient in the queue for treatment and logs the operation
 void Clinic::operatePatient(ofstream& logFile) {
     if (patientQueue.isEmpty()) {
         logFile << "No patients available for operation." << endl;
         return;
     }
 
+    // Get the next patient and remove them from the queue
     Patient operatedPatient = patientQueue.getHeadPtr()->data;
-    patientQueue.delNode();  // Remove patient from the queue
+    patientQueue.delNode();
 
     logFile << "Operated on patient: " << operatedPatient.firstName << " " << operatedPatient.lastName << endl;
 }
 
-// Cancels a patient from the queue based on last name, logs the cancellation
+// Cancels a patient's appointment using their SSN and logs the cancellation
 void Clinic::cancelPatient(string ssn, ofstream& logFile) {
-    // Ask the user for the SSN of the patient to cancel
+    // Get the SSN from user input
     cout << "Enter the SSN of the patient to cancel: ";
     cin >> ssn;
 
-    // Call the cancelPatient method from Queue to remove the patient
+    // Search for the patient in the queue
     Node* currentNode = patientQueue.getHeadPtr();
     bool patientFound = false;
     Patient temp;
@@ -71,28 +74,27 @@ void Clinic::cancelPatient(string ssn, ofstream& logFile) {
     }
 
     if (patientFound) {
-        bool worked = false;
-        // If the patient is found, remove them from the queue and log the cancellation
-        worked = patientQueue.cancelPatientBySSN(temp.ssn);
+        // Attempt to cancel the patient's appointment
+        bool worked = patientQueue.cancelPatientBySSN(temp.ssn);
         if (!worked) {
-          cout << "Patient Does Not Exist." << endl;
-          logFile << "Patient Does Not Exist. SSN: " << ssn << endl;
+            cout << "Patient Does Not Exist." << endl;
+            logFile << "Patient Does Not Exist. SSN: " << ssn << endl;
         }
         else {
-          cout << "Patient with SSN " << ssn << " has been canceled." << endl;
-          logFile << clinicName << " patient: " << temp.firstName << " " << temp.lastName
-            << " has been removed from the waiting list." << endl;
+            cout << "Patient with SSN " << ssn << " has been canceled." << endl;
+            logFile << clinicName << " patient: " << temp.firstName << " " << temp.lastName
+                << " has been removed from the waiting list." << endl;
         }
     }
 }
 
-// Prints all patients in the queue to the console
+// Displays all patients currently in the queue
 void Clinic::printPatients() {
     cout << "Patients in Queue:" << endl;
     cout << left << setw(20) << "First Name" << setw(20) << "Last Name" 
          << setw(20) << "SSN" << "Status" << endl << endl;
 
-    // Traverse the queue and print each patient
+    // Get the first patient in the queue
     Node* currentNode = patientQueue.getHeadPtr();
 
     // Check if the queue is empty
@@ -101,22 +103,17 @@ void Clinic::printPatients() {
         return;
     }
 
+    // Print each patient's information
     while (currentNode != nullptr) {
         Patient& p = currentNode->data;
 
-        string status;
-        if (p.status) {
-            status = "Critical";
-        }
-        else {
-            status = "Regular";
-        }
+        // Determine patient status
+        string status = p.status ? "Critical" : "Regular";
 
-        // Print patient information
+        // Print patient information in formatted columns
         cout << left << setw(20) << p.firstName << setw(20) << p.lastName 
              << setw(20) << p.ssn << status << endl;
 
-        // Move to the next node in the queue
         currentNode = currentNode->nextPtr;
     }
 }
