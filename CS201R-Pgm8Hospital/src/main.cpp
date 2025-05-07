@@ -68,6 +68,14 @@ int main() {
             int choice2 = displayClinicMenu();
             if (choice2 == 1) {
                 // Add Patient
+                cin >> first;
+                cin >> last;
+                cin >> ssn;
+                tempPatient.firstName=first;
+                tempPatient.lastName=last;
+                tempPatient.ssn=ssn;
+                tempPatient.type="PC";
+                HC.addNode(tempPatient);
             }
             // Add code to handle Pulmonary Clinic
         }
@@ -77,6 +85,14 @@ int main() {
             int choice2 = displayClinicMenu();
             if (choice2 == 1) {
                 // Add Patient
+                cin >> first;
+                cin >> last;
+                cin >> ssn;
+                tempPatient.firstName=first;
+                tempPatient.lastName=last;
+                tempPatient.ssn=ssn;
+                tempPatient.type="PSC";
+                HC.addNode(tempPatient);
 
             }
             // Add code to handle Plastic Surgery
