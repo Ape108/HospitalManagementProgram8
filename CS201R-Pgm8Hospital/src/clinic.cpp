@@ -55,8 +55,9 @@ void Clinic::operatePatient(ofstream& logFile) {
 }
 
 // Cancels a patient's appointment using their SSN and logs the cancellation
-void Clinic::cancelPatient(string ssn, ofstream& logFile) {
+void Clinic::cancelPatient(ofstream& logFile) {
     // Get the SSN from user input
+    string ssn;
     cout << "Enter the SSN of the patient to cancel: ";
     cin >> ssn;
 

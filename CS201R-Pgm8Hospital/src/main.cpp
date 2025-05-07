@@ -42,80 +42,88 @@ int main() {
     
     // Main program loop
     int choice = displayMenu();
-    Patient tempPatient;
     Node* tempNode;
-    string first= "Enter Patients First Name: ", last= "\nEnter Patients Last Name: ", ssn= "\nEnter Patients SSN: ";
     while (choice != 4) {  // 4 is the exit option
         if (choice == 1) {
-            // Heart Clinic operations
-            cout << "Welcome to the Heart Clinic" << endl;
-            int choice2 = displayClinicMenu();
-            if (choice2 == 1) {
-                // Add Patient
-                HC.addPatient(HC, logFile);
-            }
-            else if (choice2==2){
-                cin >> first;
-                cin >> last;
-                cin >> ssn;
-                tempPatient.firstName=first;
-                tempPatient.lastName=last;
-                tempPatient.ssn=ssn;
-                tempPatient.type="HC";
-                tempNode->data = tempPatient;
-                HC.addNode(tempNode);
-
-            }
-            else if (choice2==3){
-                
-            }
-            else if (choice2==4){
-                HC.cancelPatient();
-
-            }
-            else if (choice2==5){
-
-            }
-            else if(choice2==6){
-
+            while (choice2!=6){
+                // Heart Clinic operations
+                cout << "Welcome to the Heart Clinic" << endl;
+                int choice2 = displayClinicMenu();
+                if (choice2 == 1) {
+                    // Add Patient
+                    heartClinic.addPatient(HC, logFile);
+                }
+                else if (choice2==2){
+                    // Add Critical Patient
+                    heartClinic.addCriticalPatient(HC, logFile);
+                }
+                else if (choice2==3){
+                    // Operate Patient
+                    heartClinic.operatePatient(logFile);
+                }
+                else if (choice2==4){
+                    // Cancel Patient
+                    heartClinic.cancelPatient(logFile);
+                }
+                else if (choice2==5){
+                    // Print Patients
+                    heartClinic.printPatients();
+                }
             }
         }
         else if (choice == 2) {
-            // Pulmonary Clinic operations
-            cout << "Welcome to the Pulmonary Clinic" << endl;
-            int choice2 = displayClinicMenu();
-            if (choice2 == 1) {
-                // Add Patient
-                cin >> first;
-                cin >> last;
-                cin >> ssn;
-                tempPatient.firstName=first;
-                tempPatient.lastName=last;
-                tempPatient.ssn=ssn;
-                tempPatient.type="PC";
-                tempNode->data = tempPatient;
-                HC.addNode(tempNode);
+            while (choice2!=6){
+                // Pulmonary Clinic operations
+                cout << "Welcome to the Pulmonary Clinic" << endl;
+                int choice2 = displayClinicMenu();
+                if (choice2 == 1) {
+                    // Add Patient
+                    pulmonaryClinic.addPatient(HC, logFile);
+                }
+                else if (choice2==2){
+                    // Add Critical Patient
+                    pulmonaryClinic.addCriticalPatient(HC, logFile);
+                }
+                else if (choice2==3){
+                    // Operate Patient
+                    pulmonaryClinic.operatePatient(logFile);
+                }
+                else if (choice2==4){
+                    // Cancel Patient
+                    pulmonaryClinic.cancelPatient(logFile);
+                }
+                else if (choice2==5){
+                    // Print Patients
+                    pulmonaryClinic.printPatients();
+                }
             }
-            // Add code to handle Pulmonary Clinic
         }
         else if (choice == 3) {
-            // Plastic Surgery Clinic operations
-            cout << "Welcome to the Plastic Surgery" << endl;
-            int choice2 = displayClinicMenu();
-            if (choice2 == 1) {
-                // Add Patient
-                cin >> first;
-                cin >> last;
-                cin >> ssn;
-                tempPatient.firstName=first;
-                tempPatient.lastName=last;
-                tempPatient.ssn=ssn;
-                tempPatient.type="PSC";
-                tempNode->data = tempPatient;
-                HC.addNode(tempNode);
-
+            while (choice2!=6){
+                // Plastic Surgery Clinic operations
+                cout << "Welcome to the Plastic Surgery" << endl;
+                int choice2 = displayClinicMenu();
+                if (choice2 == 1) {
+                    // Add Patient
+                    plasticSurgeryClinic.addPatient(HC, logFile);
+                }
+                else if (choice2==2){
+                    // Add Critical Patient
+                    plasticSurgeryClinic.addCriticalPatient(HC, logFile);
+                }
+                else if (choice2==3){
+                    // Operate Patient
+                    plasticSurgeryClinic.operatePatient(logFile);
+                }
+                else if (choice2==4){
+                    // Cancel Patient
+                    plasticSurgeryClinic.cancelPatient(logFile);
+                }
+                else if (choice2==5){
+                    // Print Patients
+                    plasticSurgeryClinic.printPatients();
+                }
             }
-            // Add code to handle Plastic Surgery
         }
         else {
             cout << "Invalid choice. Please try again." << endl;
@@ -124,6 +132,7 @@ int main() {
         cin >> choice;
     }
     
+    cout << "Have a good day!" << endl;
     return 0;
 
 }

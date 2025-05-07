@@ -32,7 +32,7 @@ public:
   void operatePatient(ofstream& logFile);
   
   // Cancel a patient's appointment using their SSN
-  void cancelPatient(string lname, ofstream& logFile);
+  void cancelPatient(ofstream& logFile);
 
   // Display all patients currently in the queue
   void printPatients();
