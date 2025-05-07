@@ -7,7 +7,7 @@
 #include <vector>
 #include "file_handler.h"
 #include "queue.h"
-#include "functions.h"
+#include "menu.h"
 #include "clinic.h"
 #include "linked.h"
 

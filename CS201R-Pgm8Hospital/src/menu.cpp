@@ -1,4 +1,4 @@
-#include "functions.h"
+#include "menu.h"
 
 // Displays the main menu of the hospital system
 // Returns the user's choice (1-4)
