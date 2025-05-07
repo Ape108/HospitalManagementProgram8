@@ -43,6 +43,7 @@ int main() {
     // Main program loop
     int choice = displayMenu();
     Patient tempPatient;
+    Node* tempNode;
     string first= "Enter Patients First Name: ", last= "\nEnter Patients Last Name: ", ssn= "\nEnter Patients SSN: ";
     while (choice != 4) {  // 4 is the exit option
         if (choice == 1) {
@@ -61,7 +62,8 @@ int main() {
                 tempPatient.lastName=last;
                 tempPatient.ssn=ssn;
                 tempPatient.type="HC";
-                HC.addNode(tempPatient);
+                tempNode->data = tempPatient;
+                HC.addNode(tempNode);
 
             }
             else if (choice2==3){
@@ -91,7 +93,8 @@ int main() {
                 tempPatient.lastName=last;
                 tempPatient.ssn=ssn;
                 tempPatient.type="PC";
-                HC.addNode(tempPatient);
+                tempNode->data = tempPatient;
+                HC.addNode(tempNode);
             }
             // Add code to handle Pulmonary Clinic
         }
@@ -108,7 +111,8 @@ int main() {
                 tempPatient.lastName=last;
                 tempPatient.ssn=ssn;
                 tempPatient.type="PSC";
-                HC.addNode(tempPatient);
+                tempNode->data = tempPatient;
+                HC.addNode(tempNode);
 
             }
             // Add code to handle Plastic Surgery
