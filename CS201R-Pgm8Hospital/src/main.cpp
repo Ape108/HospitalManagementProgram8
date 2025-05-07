@@ -42,6 +42,8 @@ int main() {
     
     // Main program loop
     int choice = displayMenu();
+    Patient tempPatient;
+    string first= "Enter Patients First Name: ", last= "\nEnter Patients Last Name: ", ssn= "\nEnter Patients SSN: ";
     while (choice != 4) {  // 4 is the exit option
         if (choice == 1) {
             // Heart Clinic operations
@@ -49,6 +51,15 @@ int main() {
             int choice2 = displayClinicMenu();
             if (choice2 == 1) {
                 // Add Patient
+                cin >> first;
+                cin >> last;
+                cin >> ssn;
+                tempPatient.firstName=first;
+                tempPatient.lastName=last;
+                tempPatient.ssn=ssn;
+                tempPatient.type="HC";
+                HC.addNode(tempPatient);
+
             }
         }
         else if (choice == 2) {
@@ -66,6 +77,7 @@ int main() {
             int choice2 = displayClinicMenu();
             if (choice2 == 1) {
                 // Add Patient
+
             }
             // Add code to handle Plastic Surgery
         }
