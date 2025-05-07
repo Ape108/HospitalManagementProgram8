@@ -51,6 +51,9 @@ int main() {
             int choice2 = displayClinicMenu();
             if (choice2 == 1) {
                 // Add Patient
+                HC.addPatient(HC, logFile);
+            }
+            else if (choice2==2){
                 cin >> first;
                 cin >> last;
                 cin >> ssn;
@@ -59,6 +62,19 @@ int main() {
                 tempPatient.ssn=ssn;
                 tempPatient.type="HC";
                 HC.addNode(tempPatient);
+
+            }
+            else if (choice2==3){
+                
+            }
+            else if (choice2==4){
+                HC.cancelPatient();
+
+            }
+            else if (choice2==5){
+
+            }
+            else if(choice2==6){
 
             }
         }
