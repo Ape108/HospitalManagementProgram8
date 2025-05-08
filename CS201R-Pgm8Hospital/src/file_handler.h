@@ -4,6 +4,9 @@
 #include <sstream>
 #include <vector>
 #include <string>
+#include <ctime>
+#include <iomanip>
+#include <algorithm>
 
 #include "clinic.h"
 
