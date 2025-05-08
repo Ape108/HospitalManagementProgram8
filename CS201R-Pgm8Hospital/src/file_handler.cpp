@@ -8,7 +8,7 @@
 
 using namespace std;
 
-// Get current timestamp in a formatted string
+// Get current timestamp in a formatted string (AI Made)
 string getCurrentTimestamp() {
     auto now = time(nullptr);
     auto tm = *localtime(&now);

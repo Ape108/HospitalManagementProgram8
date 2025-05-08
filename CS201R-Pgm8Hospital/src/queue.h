@@ -13,7 +13,7 @@ public:
 	// Default constructor calls parent class constructor
 	Queue() : LinkedList() {}
     
-	// Copy constructor
+	// Copy constructor (Added by AI to fix memory leak problem)
 	Queue(const Queue& other) : LinkedList() {
 		Node* current = other.headPtr;
 		while (current != nullptr) {
@@ -23,7 +23,7 @@ public:
 		}
 	}
 
-	// Assignment operator
+	// Assignment operator (Added by AI to fix memory leak problem)
 	Queue& operator=(const Queue& other) {
 		if (this != &other) {
 			// Clear current queue

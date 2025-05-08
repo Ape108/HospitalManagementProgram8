@@ -26,6 +26,8 @@ int main() {
     // Initialize queues for different clinics
     Queue L, HC, PC, PSC;  // L = main list, HC = Heart Clinic, PC = Pulmonary Clinic, PSC = Plastic Surgery Clinic
     
+    // AI Gave guidance on some Queue logic errors
+    
     // Initialize clinic objects with their respective queues
     Clinic heartClinic("Heart Clinic", HC);
     Clinic pulmonaryClinic("Pulmonary Clinic", PC);

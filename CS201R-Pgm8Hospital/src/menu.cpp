@@ -15,7 +15,7 @@ int displayMenu() {
         if (!(cin >> choice)) {
             cout << "Error: Invalid input. Please enter a number between 1 and 4." << endl;
             cin.clear();  // Clear error flags
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Discard invalid input
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Discard invalid input (AI helped error handling)
             choice = 0;  // Reset choice
             continue;
         }
@@ -43,7 +43,7 @@ int displayClinicMenu() {
         if (!(cin >> choice)) {
             cout << "Error: Invalid input. Please enter a number between 1 and 6." << endl;
             cin.clear();  // Clear error flags
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Discard invalid input
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Discard invalid input (AI helped error handling)
             choice = 0;  // Reset choice
             continue;
         }
