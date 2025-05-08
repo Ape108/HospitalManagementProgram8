@@ -2,18 +2,28 @@
 
 CS201R-Pgm8Hospital/
 ├── src/                            # Implementation files
-│   ├── clinic.cpp                  # Base Clinic class implementation
+│   ├── clinic.cpp                  # Clinic class implementation
+│   ├── clinic.h                    # Clinic class definition
 │   ├── file_handler.cpp            # File I/O functions implementation
-│   ├── menu.cpp                    # Menu system functions implementation
-│   ├── main.cpp                    # Program entry point
-|   ├── linked.h                    # Linked List class
-│   ├── queue.h                     # Queue class using nodes/pointers
-│   ├── clinic.h                    # Base Clinic class
 │   ├── file_handler.h              # File I/O operations
+│   ├── linked.h                    # LinkedList abstract class and Node structure
+│   ├── main.cpp                    # Program entry point and menu flow
+│   ├── menu.cpp                    # Menu system functions implementation
 │   ├── menu.h                      # Menu system functions
-│   ├── patient.csv                 # Input file with scheduled patients
+│   ├── queue.h                     # Queue class implementation
+│   ├── patient_data.csv            # Input file with scheduled patients
 │   ├── log.txt                     # Transaction log output
 │   └── next_day_patients.csv       # End-of-day output for next day
 |
 └── docs/                           # Documentation
-    └── team_roles.md               # Document explaining team roles
+    ├── project_structure.txt       # This file
+    └── team_roles.md              # Document explaining team roles
+
+Key Features:
+- Patient management with priority queues
+- Three clinic types: Heart (HC), Pulmonary (PC), Plastic Surgery (PSC)
+- File-based patient data input/output
+- Transaction logging
+- End-of-day report generation
+- Input validation for SSN and clinic types
+- Maximum 10 patients per clinic
