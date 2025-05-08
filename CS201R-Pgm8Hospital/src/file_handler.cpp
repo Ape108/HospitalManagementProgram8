@@ -5,6 +5,7 @@
 #include <vector>
 #include <ctime>
 #include <iomanip>
+#include <algorithm>
 
 using namespace std;
 
