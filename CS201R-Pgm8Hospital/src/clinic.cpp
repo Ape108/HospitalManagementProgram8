@@ -67,7 +67,8 @@ void Clinic::operatePatient(ofstream& logFile) {
     // Get the next patient and remove them from the queue
     Patient operatedPatient = patientQueue.getHeadPtr()->data;
     patientQueue.delNode();
-
+    
+    cout << "Operated on patient: " << operatedPatient.firstName << " " << operatedPatient.lastName << endl;
     logFile << "Operated on patient: " << operatedPatient.firstName << " " << operatedPatient.lastName << endl;
 }
 
@@ -91,18 +92,18 @@ void Clinic::cancelPatient(ofstream& logFile) {
         currentNode = currentNode->nextPtr;
     }
 
-    if (patientFound) {
-        // Attempt to cancel the patient's appointment
-        bool worked = patientQueue.cancelPatientBySSN(temp.ssn);
-        if (!worked) {
-            cout << "Patient Does Not Exist." << endl;
-            logFile << "Patient Does Not Exist. SSN: " << ssn << endl;
-        }
-        else {
-            cout << "Patient with SSN " << ssn << " has been canceled." << endl;
-            logFile << clinicName << " patient: " << temp.firstName << " " << temp.lastName
-                << " has been removed from the waiting list." << endl;
-        }
+    if (!patientFound) {
+        cout << "Patient Does Not Exist." << endl;
+        logFile << "Patient Does Not Exist. SSN: " << ssn << endl;
+        return;
+    }
+
+    // Cancel the patient's appointment
+    bool worked = patientQueue.cancelPatientBySSN(temp.ssn);
+    if (worked) {
+        cout << "Patient with SSN " << ssn << " has been canceled." << endl;
+        logFile << clinicName << " patient: " << temp.firstName << " " << temp.lastName
+            << " has been removed from the waiting list." << endl;
     }
 }
 
