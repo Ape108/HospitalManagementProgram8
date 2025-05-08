@@ -52,12 +52,9 @@ public:
     
     // Virtual destructor to properly clean up the linked list
     virtual ~LinkedList() {
-        Node* curr = headPtr;
-        while (curr) {
-            Node* temp = curr;
-            curr = curr->nextPtr;
-            delete temp;
-        }
+        // The Queue class will handle node deletion
+        headPtr = nullptr;
+        tailPtr = nullptr;
     }
 
     // Pure virtual functions that must be implemented by derived classes

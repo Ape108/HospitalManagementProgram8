@@ -36,4 +36,7 @@ public:
 
   // Display all patients currently in the queue
   void printPatients();
+
+  // Get the clinic's queue
+  const Queue& getQueue() const { return patientQueue; }
 };

@@ -13,10 +13,46 @@ public:
 	// Default constructor calls parent class constructor
 	Queue() : LinkedList() {}
     
+	// Copy constructor
+	Queue(const Queue& other) : LinkedList() {
+		Node* current = other.headPtr;
+		while (current != nullptr) {
+			Node* newNode = new Node(current->data);
+			addNode(newNode);
+			current = current->nextPtr;
+		}
+	}
+
+	// Assignment operator
+	Queue& operator=(const Queue& other) {
+		if (this != &other) {
+			// Clear current queue
+			while (!isEmpty()) {
+				delNode();
+			}
+			// Copy nodes from other queue
+			Node* current = other.headPtr;
+			while (current != nullptr) {
+				Node* newNode = new Node(current->data);
+				addNode(newNode);
+				current = current->nextPtr;
+			}
+		}
+		return *this;
+	}
+
+	// Destructor to clean up all nodes in the queue
+	~Queue() {
+		while (!isEmpty()) {
+			delNode();
+		}
+	}
+
 	// Override of addNode to implement queue-specific addition logic
 	void addNode(Node* newNode) override {
 		if (isFull()) {
 			cout << "The queue is full." << endl;
+			delete newNode;  // Delete the node if we can't add it
 			return;
 		}
 		if (tailPtr) {
@@ -29,7 +65,7 @@ public:
 	}
 
 	// Getter for the head pointer
-	Node* getHeadPtr() {
+	Node* getHeadPtr() const {
 		return headPtr;
 	}
 
@@ -38,6 +74,7 @@ public:
 	void addCriticalPatient(Node* newNode) {
 		if (isFull()) {
 			cout << "The queue is full." << endl;
+			delete newNode;  // Delete the node if we can't add it
 			return;
 		}
 
@@ -101,27 +138,28 @@ public:
 			cout << "The queue is empty." << endl;
 			return;
 		}
-		Node* del = headPtr;
+		Node* temp = headPtr;
 		headPtr = headPtr->nextPtr;
 		if (headPtr == nullptr) {
 			tailPtr = nullptr;
 		}
-		delete del;
+		temp->nextPtr = nullptr;  // Clear the next pointer before deletion
+		delete temp;
 		count--;
 	}
 	
 	// Check if the queue has reached its maximum capacity
-	bool isFull() {
+	bool isFull() const {
 		return count >= max_size;
 	}
 	
 	// Check if the queue is empty
-	bool isEmpty() {
+	bool isEmpty() const {
 		return count == 0;
 	}
 	
 	// Get the current number of patients in the queue
-	int size() {
+	int size() const {
 		return count;
 	}
 };

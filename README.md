@@ -39,7 +39,6 @@ This project involves developing a patient management system for Research Hospit
 ## Class Structure Plans
 - Patient class/struct for storing patient information
 - Custom queue implementation using nodes and pointers
-- Base Clinic class with derived classes for each department
 - File handling functionality for I/O operations
 
 ## Input/Output Specifications

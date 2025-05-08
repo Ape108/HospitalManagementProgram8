@@ -1,55 +1,106 @@
 #include "file_handler.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <ctime>
+#include <iomanip>
+
+using namespace std;
+
+// Get current timestamp in a formatted string
+string getCurrentTimestamp() {
+    auto now = time(nullptr);
+    auto tm = *localtime(&now);
+    ostringstream oss;
+    oss << put_time(&tm, "%Y-%m-%d %H:%M:%S");
+    return oss.str();
+}
+
+// Log a transaction with timestamp
+void logTransaction(ofstream& logFile, const string& message, bool success) {
+    logFile << "[" << getCurrentTimestamp() << "] ";
+    logFile << (success ? "SUCCESS: " : "ERROR: ");
+    logFile << message << endl;
+}
 
 // Reads patient data from a CSV file and distributes patients to appropriate clinic queues
-void readFile(ifstream& inFile, Queue& L, Queue& HC, Queue& PC, Queue& PSC) {
-    Patient tempPerson;
-    string inStr, tempStr;
-    vector<string> row;
-
-    // Read the file line by line
-    while (getline(inFile, inStr)) {
-        stringstream inSS(inStr);
-        row.clear();
-
-        // Parse each line into comma-separated values
-        while (getline(inSS, tempStr, ',')) {
-            row.push_back(tempStr);
-        }
-
-        // Extract patient information from the parsed data
-        tempPerson.type = row[0];
-        if (tempPerson.type == "ERR") throw logic_error("Error in Type");
-        tempPerson.firstName = row[1];
-        tempPerson.lastName = row[2];
-
-        try {
-            // Convert SSN to integer and create a new patient node
-            tempPerson.ssn = stoi(row[3]);
-            Node* temp = new Node(tempPerson);
-            L.addNode(temp);  // Add to main list
-        }
-        catch (logic_error& err) {
-            cout << err.what() << endl;
+void readFile(ifstream& inFile, Clinic& heartClinic, Clinic& pulmonaryClinic, Clinic& plasticSurgeryClinic) {
+    string line;
+    // Skip header line
+    getline(inFile, line);
+    
+    while (getline(inFile, line)) {
+        stringstream ss(line);
+        string type, firstName, lastName, ssn, statusStr;
+        
+        // Parse CSV line
+        getline(ss, type, ',');
+        getline(ss, firstName, ',');
+        getline(ss, lastName, ',');
+        getline(ss, ssn, ',');
+        getline(ss, statusStr, ',');
+        
+        // Validate data
+        if (type.empty() || firstName.empty() || lastName.empty() || ssn.empty()) {
+            cerr << "Warning: Skipping invalid patient data: " << line << endl;
             continue;
         }
-        catch (...) {
-            cout << "Unknown Error" << endl;
+        
+        // Validate SSN
+        if (!all_of(ssn.begin(), ssn.end(), ::isdigit)) {
+            cerr << "Warning: Invalid SSN format for patient: " << firstName << " " << lastName << endl;
             continue;
         }
+        
+        // Create patient object
+        Patient patient;
+        patient.type = type;
+        patient.firstName = firstName;
+        patient.lastName = lastName;
+        patient.ssn = ssn;
+        patient.status = (statusStr == "true" || statusStr == "1");
+        
+        // Add to appropriate clinic
+        ofstream dummyLog;  // Create a dummy log file for initial patient loading
+        if (type == "HC") {
+            if (patient.status) heartClinic.addCriticalPatient(patient, dummyLog);
+            else heartClinic.addPatient(patient, dummyLog);
+        }
+        else if (type == "PC") {
+            if (patient.status) pulmonaryClinic.addCriticalPatient(patient, dummyLog);
+            else pulmonaryClinic.addPatient(patient, dummyLog);
+        }
+        else if (type == "PSC") {
+            if (patient.status) plasticSurgeryClinic.addCriticalPatient(patient, dummyLog);
+            else plasticSurgeryClinic.addPatient(patient, dummyLog);
+        }
+        else {
+            cerr << "Warning: Unknown clinic type: " << type << endl;
+        }
     }
+}
 
-    // Distribute patients to their respective clinic queues
-    Node* current = L.getHeadPtr();
-    while (current != nullptr) {
-        if (current->data.type == "HC") {
-            HC.addNode(current);  // Add to Heart Clinic queue
+// Generate end-of-day report in CSV format for next day's input
+void generateEndOfDayReport(const Queue& HC, const Queue& PC, const Queue& PSC, ofstream& reportFile) {
+    // Write CSV header
+    reportFile << "clinicName,firstName,lastName,SSN,status" << endl;
+    
+    // Helper function to write queue data
+    auto writeQueueData = [&reportFile](const Queue& queue, const string& clinicType) {
+        Node* current = queue.getHeadPtr();
+        while (current != nullptr) {
+            reportFile << clinicType << ","
+                      << current->data.firstName << ","
+                      << current->data.lastName << ","
+                      << current->data.ssn << ","
+                      << (current->data.status ? "true" : "false") << endl;
+            current = current->nextPtr;
         }
-        else if (current->data.type == "PC") {
-            PC.addNode(current);  // Add to Pulmonary Clinic queue
-        }
-        else if (current->data.type == "PSC") {
-            PSC.addNode(current);  // Add to Plastic Surgery Clinic queue
-        }
-        current = current->nextPtr;
-    }
+    };
+    
+    // Write data for each clinic
+    writeQueueData(HC, "HC");
+    writeQueueData(PC, "PC");
+    writeQueueData(PSC, "PSC");
 }

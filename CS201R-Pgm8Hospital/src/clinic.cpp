@@ -14,9 +14,20 @@ Clinic::Clinic(string name, Queue& q) {
     patientQueue = q;
 }
 
+// Helper function to validate clinic type
+bool isValidClinicType(const string& type) {
+    return type == "HC" || type == "PC" || type == "PSC";
+}
+
 // Adds a regular patient to the queue and logs the action
 // Returns true if successful, false if queue is full
 bool Clinic::addPatient(Patient& patient, ofstream& logFile) {
+    // Validate clinic type
+    if (!isValidClinicType(patient.type)) {
+        logFile << "Error: Invalid clinic type: " << patient.type << endl;
+        return false;
+    }
+
     if (patientQueue.isFull()) {
         logFile << "Clinic is full, cannot add patient: " << patient.firstName << " " << patient.lastName << endl;
         return false;
@@ -33,6 +44,12 @@ bool Clinic::addPatient(Patient& patient, ofstream& logFile) {
 
 // Adds a critical patient to the queue with priority and logs the action
 void Clinic::addCriticalPatient(Patient& patient, ofstream& logFile) {
+    // Validate clinic type
+    if (!isValidClinicType(patient.type)) {
+        logFile << "Error: Invalid clinic type: " << patient.type << endl;
+        return;
+    }
+
     // Create a new node for the critical patient
     Node* newNode = new Node();
     newNode->data = patient;

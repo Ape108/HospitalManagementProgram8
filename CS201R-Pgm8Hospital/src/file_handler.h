@@ -3,15 +3,20 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-
+#include <string>
 
 #include "clinic.h"
 
-// Read patient data from a CSV file and distribute patients to appropriate clinic queues
-// Parameters:
-//   inFile: Input file stream containing patient data
-//   L: Main list of all patients
-//   HC: Queue for Heart Clinic patients
-//   PC: Queue for Pulmonary Clinic patients
-//   PSC: Queue for Plastic Surgery Clinic patients
-void readFile(ifstream& inFile, Queue& L, Queue& HC, Queue& PC, Queue& PSC);
+using namespace std;
+
+// Get current timestamp in a formatted string
+string getCurrentTimestamp();
+
+// Log a transaction with timestamp
+void logTransaction(ofstream& logFile, const string& message, bool success = true);
+
+// Reads patient data from a CSV file and distributes patients to appropriate clinic queues
+void readFile(ifstream& inFile, Clinic& heartClinic, Clinic& pulmonaryClinic, Clinic& plasticSurgeryClinic);
+
+// Generate end-of-day report in CSV format for next day's input
+void generateEndOfDayReport(const Queue& HC, const Queue& PC, const Queue& PSC, ofstream& reportFile);
