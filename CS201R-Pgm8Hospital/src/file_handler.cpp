@@ -27,19 +27,16 @@ void logTransaction(ofstream& logFile, const string& message, bool success) {
 // Reads patient data from a CSV file and distributes patients to appropriate clinic queues
 void readFile(ifstream& inFile, Clinic& heartClinic, Clinic& pulmonaryClinic, Clinic& plasticSurgeryClinic) {
     string line;
-    // Skip header line
-    getline(inFile, line);
     
     while (getline(inFile, line)) {
         stringstream ss(line);
-        string type, firstName, lastName, ssn, statusStr;
+        string type, firstName, lastName, ssn;
         
         // Parse CSV line
         getline(ss, type, ',');
         getline(ss, firstName, ',');
         getline(ss, lastName, ',');
         getline(ss, ssn, ',');
-        getline(ss, statusStr, ',');
         
         // Validate data
         if (type.empty() || firstName.empty() || lastName.empty() || ssn.empty()) {
@@ -59,21 +56,18 @@ void readFile(ifstream& inFile, Clinic& heartClinic, Clinic& pulmonaryClinic, Cl
         patient.firstName = firstName;
         patient.lastName = lastName;
         patient.ssn = ssn;
-        patient.status = (statusStr == "true" || statusStr == "1");
+        patient.status = false;  // All patients start as non-critical
         
         // Add to appropriate clinic
         ofstream dummyLog;  // Create a dummy log file for initial patient loading
         if (type == "HC") {
-            if (patient.status) heartClinic.addCriticalPatient(patient, dummyLog);
-            else heartClinic.addPatient(patient, dummyLog);
+            heartClinic.addPatient(patient, dummyLog);
         }
         else if (type == "PC") {
-            if (patient.status) pulmonaryClinic.addCriticalPatient(patient, dummyLog);
-            else pulmonaryClinic.addPatient(patient, dummyLog);
+            pulmonaryClinic.addPatient(patient, dummyLog);
         }
         else if (type == "PSC") {
-            if (patient.status) plasticSurgeryClinic.addCriticalPatient(patient, dummyLog);
-            else plasticSurgeryClinic.addPatient(patient, dummyLog);
+            plasticSurgeryClinic.addPatient(patient, dummyLog);
         }
         else {
             cerr << "Warning: Unknown clinic type: " << type << endl;
