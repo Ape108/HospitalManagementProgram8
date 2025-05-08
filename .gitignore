@@ -43,3 +43,7 @@ replit.nix
 .local/
 
 .DS_Store
+
+CS201R-Pgm8Hospital/src/next_day_patients.csv
+CS201R-Pgm8Hospital/src/log.txt
+
